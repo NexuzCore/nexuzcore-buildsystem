@@ -1,0 +1,12 @@
+{
+  "name": "sedutil",
+  "version": "1.20.0",
+  "urls": [
+    "https://github.com/Drive-Trust-Alliance/sedutil/archive/refs/tags/1.20.0.tar.gz"
+  ],
+  "src_dir": "work/sedutil-{version}",
+  "deps": ["cmake"],
+  "configure": [
+    "cmake", "-DCMAKE_INSTALL_PREFIX=/usr", "-DCMAKE_BUILD_TYPE=Release", "."
+  ]
+}

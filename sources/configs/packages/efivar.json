@@ -1,0 +1,10 @@
+{
+  "name": "efivar",
+  "version": "39",
+  "urls": [
+    "https://github.com/rhboot/efivar/archive/refs/tags/39.tar.gz"
+  ],
+  "src_dir": "work/efivar-{version}",
+  "deps": [],
+  "configure": []
+}

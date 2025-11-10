@@ -1,0 +1,10 @@
+{
+  "name": "nvme-cli",
+  "version": "2.10",
+  "urls": [
+    "https://github.com/linux-nvme/nvme-cli/archive/refs/tags/v2.10.tar.gz"
+  ],
+  "src_dir": "work/nvme-cli-{version}",
+  "deps": ["pkgconf"],
+  "configure": []
+}

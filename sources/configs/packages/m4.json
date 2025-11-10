@@ -1,0 +1,11 @@
+{
+  "name": "m4",
+  "version": "1.4.19",
+  "urls": [
+    "https://ftp.gnu.org/gnu/m4/m4-1.4.19.tar.xz",
+    "https://mirrors.kernel.org/gnu/m4/m4-1.4.19.tar.xz",
+    "https://ftpmirror.gnu.org/m4/m4-1.4.19.tar.xz"
+  ],
+  "src_dir": "work/m4-{version}",
+  "deps": []
+}

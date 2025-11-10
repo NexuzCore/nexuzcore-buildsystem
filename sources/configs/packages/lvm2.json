@@ -1,0 +1,20 @@
+{
+  "name": "lvm2",
+  "version": "2.03.24",
+  "urls": [
+    "https://sourceware.org/ftp/lvm2/LVM2.2.03.24.tgz"
+  ],
+  "src_dir": "work/LVM2-{version}",
+  "deps": ["device-mapper", "pkgconf"],
+  "configure": [
+    "./configure",
+    "--host={arch}-linux-gnu",
+    "--prefix=/usr",
+    "--enable-pkgconfig",
+    "--with-lvmconfigdir=/etc/lvm",
+    "--with-lvmmetadatadir=/etc/lvm/backup",
+    "--with-uuidlib={rootfs}/usr/lib",
+    "--disable-selinux",
+    "--disable-udev"
+  ]
+}

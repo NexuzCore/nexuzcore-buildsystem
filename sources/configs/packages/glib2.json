@@ -1,0 +1,16 @@
+{
+  "name": "glib2",
+  "version": "2.80.0",
+  "urls": [
+    "https://download.gnome.org/sources/glib/2.80/glib-2.80.0.tar.xz"
+  ],
+  "src_dir": "work/glib-2.80.0",
+  "deps": ["pkgconf", "libffi", "zlib"],
+  "configure": [
+    "./configure",
+    "--host={arch}-linux-gnu",
+    "--prefix=/usr",
+    "--with-pcre=system",
+    "--disable-libmount"
+  ]
+}

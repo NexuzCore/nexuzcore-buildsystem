@@ -1,0 +1,8 @@
+{
+  "name": "gpgme",
+  "version": "1.23.2",
+  "urls": ["https://www.gnupg.org/ftp/gcrypt/gpgme/gpgme-1.23.2.tar.bz2"],
+  "src_dir": "gpgme-{version}",
+  "deps": ["libgpg-error"],
+  "configure": ["./configure", "--prefix=/usr", "--disable-gpg-test"]
+}

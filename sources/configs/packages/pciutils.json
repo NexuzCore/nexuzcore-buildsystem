@@ -1,0 +1,10 @@
+{
+  "name": "pciutils",
+  "version": "3.13.0",
+  "urls": [
+    "https://mirrors.edge.kernel.org/pub/software/utils/pciutils/pciutils-3.13.0.tar.xz"
+  ],
+  "src_dir": "work/pciutils-{version}",
+  "deps": [],
+  "configure": []
+}

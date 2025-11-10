@@ -1,0 +1,1 @@
+{ "name": "git", "version": "2.45.0", "urls": ["https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.45.0.tar.xz"], "src_dir": "work/git-{version}", "deps": ["curl","openssl","zlib","expat","pkgconf"] }

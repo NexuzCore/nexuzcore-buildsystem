@@ -1,0 +1,1 @@
+{ "name": "parted", "version": "3.6", "urls": ["https://ftp.gnu.org/gnu/parted/parted-3.6.tar.xz"], "src_dir": "work/parted-{version}", "deps": ["ncurses","pkgconf"] }

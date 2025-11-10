@@ -1,0 +1,8 @@
+{
+  "name": "libgpg-error",
+  "version": "1.47",
+  "urls": ["https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.47.tar.bz2"],
+  "src_dir": "work/libgpg-error-{version}",
+  "deps": [],
+  "configure": ["./configure", "--prefix=/usr", "--disable-static"]
+}

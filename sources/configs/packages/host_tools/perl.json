@@ -1,0 +1,8 @@
+{
+  "name": "perl",
+  "version": "host",
+  "urls": [],
+  "src_dir": "",
+  "deps": [],
+  "configure": []
+}

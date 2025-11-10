@@ -1,0 +1,11 @@
+{
+  "name": "automake",
+  "version": "1.16.5",
+  "urls": [
+    "https://ftp.gnu.org/gnu/automake/automake-1.16.5.tar.xz",
+    "https://mirrors.kernel.org/gnu/automake/automake-1.16.5.tar.xz",
+    "https://ftpmirror.gnu.org/automake/automake-1.16.5.tar.xz"
+  ],
+  "src_dir": "work/automake-{version}",
+  "deps": ["autoconf"]
+}

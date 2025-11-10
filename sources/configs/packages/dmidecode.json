@@ -1,0 +1,10 @@
+{
+  "name": "dmidecode",
+  "version": "3.6",
+  "urls": [
+    "https://download.savannah.gnu.org/releases/dmidecode/dmidecode-3.6.tar.xz"
+  ],
+  "src_dir": "work/dmidecode-{version}",
+  "deps": [],
+  "configure": []
+}

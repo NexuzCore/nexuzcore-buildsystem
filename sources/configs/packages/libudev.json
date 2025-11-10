@@ -1,0 +1,9 @@
+{
+  "name": "libudev",
+  "version": "host",
+  "urls": [],
+  "src_dir": "",
+  "deps": [],
+  "configure": [],
+  "notes": "Host-Tool / Systembibliothek, wird nicht gebaut."
+}

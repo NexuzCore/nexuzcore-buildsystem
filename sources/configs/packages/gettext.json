@@ -1,0 +1,1 @@
+{ "name": "gettext", "version": "0.22", "urls": ["https://ftp.gnu.org/gnu/gettext/gettext-0.22.tar.xz"], "src_dir": "work/gettext-{version}", "deps": ["pkgconf"] }

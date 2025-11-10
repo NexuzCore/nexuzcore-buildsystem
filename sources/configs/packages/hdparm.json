@@ -1,0 +1,10 @@
+{
+  "name": "hdparm",
+  "version": "9.65",
+  "urls": [
+    "https://downloads.sourceforge.net/project/hdparm/hdparm/hdparm-9.65.tar.gz"
+  ],
+  "src_dir": "work/hdparm-{version}",
+  "deps": [],
+  "configure": []
+}

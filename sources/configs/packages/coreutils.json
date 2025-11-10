@@ -1,0 +1,12 @@
+{
+  "name": "coreutils",
+  "version": "9.4",
+  "urls": [
+    "https://ftp.gnu.org/gnu/coreutils/coreutils-9.4.tar.xz"
+  ],
+  "src_dir": "work/coreutils-{version}",
+  "deps": [],
+  "configure": [
+    "./configure", "--prefix=/usr"
+  ]
+}

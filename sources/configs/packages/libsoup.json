@@ -1,0 +1,13 @@
+{
+    "name": "libsoup",
+    "version": "2.74.3",
+    "source": {
+        "url": "https://download.gnome.org/sources/libsoup/2.74/libsoup-2.74.3.tar.xz"
+    },
+    "depends": ["glib2", "libxml2", "sqlite", "libpsl"],
+    "build": [
+        "./configure --prefix=/usr --disable-static --disable-dependency-tracking",
+        "make -j$(nproc)",
+        "make DESTDIR=$ROOTFS_DIR install"
+    ]
+}

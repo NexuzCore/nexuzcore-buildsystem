@@ -1,0 +1,13 @@
+{
+  "name": "libxmlb",
+  "version": "0.3.14",
+  "source": {
+    "url": "https://github.com/hughsie/libxmlb/releases/download/0.3.14/libxmlb-0.3.14.tar.xz"
+  },
+  "depends": ["glib2", "libarchive"],
+  "build": [
+    "meson setup build --prefix=/usr",
+    "ninja -C build",
+    "ninja -C build install DESTDIR=$ROOTFS_DIR"
+  ]
+}

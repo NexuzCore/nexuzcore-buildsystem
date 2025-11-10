@@ -1,0 +1,10 @@
+{
+  "name": "pkgconf",
+  "version": "2.2.0",
+  "urls": [
+    "https://distfiles.dereferenced.org/pkgconf/pkgconf-2.2.0.tar.xz",
+    "https://github.com/pkgconf/pkgconf/releases/download/pkgconf-2.2.0/pkgconf-2.2.0.tar.xz"
+  ],
+  "src_dir": "work/pkgconf-{version}",
+  "deps": []
+}

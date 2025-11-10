@@ -1,0 +1,1 @@
+{ "name": "wget", "version": "1.24.5", "urls": ["https://ftp.gnu.org/gnu/wget/wget-1.24.5.tar.gz"], "src_dir": "work/wget-{version}", "deps": ["openssl","zlib","pkgconf"] }

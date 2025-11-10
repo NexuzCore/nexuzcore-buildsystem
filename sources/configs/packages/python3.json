@@ -1,0 +1,9 @@
+{
+  "name": "python3",
+  "version": "3.11.9",
+  "urls": [
+    "https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tgz"
+  ],
+  "src_dir": "work/Python-{version}",
+  "deps": ["gcc", "libffi", "zlib", "ncurses", "pkgconf"]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "json-glib",
+    "version": "1.8.0",
+    "source": {
+        "url": "https://download.gnome.org/sources/json-glib/1.8/json-glib-1.8.0.tar.xz"
+    },
+    "depends": ["glib2"],
+    "build": [
+        "./configure --prefix=/usr",
+        "make -j$(nproc)",
+        "make DESTDIR=$ROOTFS_DIR install"
+    ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "smartmontools",
+  "version": "7.4",
+  "urls": [
+    "https://downloads.sourceforge.net/project/smartmontools/smartmontools/7.4/smartmontools-7.4.tar.gz"
+  ],
+  "src_dir": "work/smartmontools-{version}",
+  "deps": [],
+  "configure": []
+}

@@ -1,0 +1,9 @@
+{
+  "name": "mpfr",
+  "version": "4.2.1",
+  "urls": [
+    "https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz"
+  ],
+  "src_dir": "work/mpfr-{version}",
+  "deps": ["gmp"]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "binutils",
+  "version": "2.43",
+  "urls": [
+    "https://ftp.gnu.org/gnu/binutils/binutils-2.43.tar.xz",
+    "https://mirrors.kernel.org/gnu/binutils/binutils-2.43.tar.xz",
+    "https://ftpmirror.gnu.org/binutils/binutils-2.43.tar.xz"
+  ],
+  "src_dir": "work/binutils-{version}",
+  "deps": ["zlib"]
+}

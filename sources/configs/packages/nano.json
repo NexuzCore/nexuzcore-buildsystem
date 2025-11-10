@@ -1,0 +1,14 @@
+{
+  "name": "nano",
+  "version": "7.2",
+  "urls": [
+    "https://www.nano-editor.org/dist/v7/nano-7.2.tar.gz",
+    "https://mirrors.kernel.org/gnu/nano/nano-7.2.tar.gz"
+  ],
+  "src_dir": "work/nano-{version}",
+  "deps": ["ncurses"],
+  "configure": [
+    "--enable-utf8",
+    "--disable-nls"
+  ]
+}

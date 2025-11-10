@@ -1,0 +1,20 @@
+{
+  "name": "openssl",
+  "version": "3.3.1",
+  "urls": [
+    "https://www.openssl.org/source/openssl-3.3.1.tar.gz",
+    "https://www.openssl.org/source/old/3.3/openssl-3.3.1.tar.gz"
+  ],
+  "src_dir": "work/openssl-{version}",
+  "deps": ["zlib"],
+  "configure": [
+    "perl", "Configure",
+    "linux-{arch}",
+    "--prefix=/usr",
+    "--openssldir=/etc/ssl",
+    "shared",
+    "zlib",
+    "--with-zlib-include={rootfs}/usr/include",
+    "--with-zlib-lib={rootfs}/usr/lib"
+  ]
+}

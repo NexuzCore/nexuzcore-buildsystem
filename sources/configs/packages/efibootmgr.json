@@ -1,0 +1,10 @@
+{
+  "name": "efibootmgr",
+  "version": "18",
+  "urls": [
+    "https://github.com/rhboot/efibootmgr/archive/refs/tags/18.tar.gz"
+  ],
+  "src_dir": "work/efibootmgr-{version}",
+  "deps": ["efivar"],
+  "configure": []
+}

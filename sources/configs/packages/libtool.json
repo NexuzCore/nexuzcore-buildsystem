@@ -1,0 +1,11 @@
+{
+  "name": "libtool",
+  "version": "2.4.7",
+  "urls": [
+    "https://ftp.gnu.org/gnu/libtool/libtool-2.4.7.tar.xz",
+    "https://mirrors.kernel.org/gnu/libtool/libtool-2.4.7.tar.xz",
+    "https://ftpmirror.gnu.org/libtool/libtool-2.4.7.tar.xz"
+  ],
+  "src_dir": "work/libtool-{version}",
+  "deps": ["automake", "autoconf"]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "flashrom",
+  "version": "1.3.0",
+  "urls": [
+    "https://download.flashrom.org/releases/flashrom-1.3.0.tar.xz"
+  ],
+  "src_dir": "work/flashrom-{version}",
+  "deps": ["pciutils", "libusb"],
+  "configure": []
+}

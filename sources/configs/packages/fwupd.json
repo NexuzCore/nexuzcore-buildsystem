@@ -1,0 +1,8 @@
+{
+  "name": "fwupd",
+  "version": "1.9.7",
+  "urls": ["https://github.com/fwupd/fwupd/releases/download/1.9.7/fwupd-1.9.7.tar.xz"],
+  "src_dir": "work/fwupd-{version}",
+  "deps": ["glib2", "gpgme", "libusb", "libudev", "json-glib", "libsoup", "python3", "pkgconf"],
+  "configure": ["./configure", "--prefix=/usr"]
+}

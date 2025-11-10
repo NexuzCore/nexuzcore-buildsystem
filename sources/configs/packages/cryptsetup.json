@@ -1,0 +1,8 @@
+{
+  "name": "cryptsetup",
+  "version": "2.5.1",
+  "urls": ["https://www.kernel.org/pub/linux/utils/cryptsetup/v2.5/cryptsetup-2.5.1.tar.xz"],
+  "src_dir": "work/cryptsetup-{version}",
+  "deps": ["libgcrypt", "libgpg-error", "libdevmapper", "libpopt", "pkgconf"],
+  "configure": ["./configure", "--prefix=/usr"]
+}

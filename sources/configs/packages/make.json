@@ -1,0 +1,11 @@
+{
+  "name": "make",
+  "version": "4.4",
+  "urls": [
+    "https://mirrors.kernel.org/gnu/make/make-4.4.tar.gz",
+    "https://ftp.yzu.edu.tw/gnu/make/make-4.4.tar.gz",
+    "https://mirror.csclub.uwaterloo.ca/gnu/make/make-4.4.tar.gz"
+  ],
+  "src_dir": "work/make-{version}",
+  "deps": []
+}

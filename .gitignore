@@ -1,0 +1,12 @@
+.env
+venv
+__pycache__
+build/*
+twine/*
+dist/*
+.backups
+.data/*
+work
+build
+output
+.data

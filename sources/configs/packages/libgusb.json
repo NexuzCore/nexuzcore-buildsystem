@@ -1,0 +1,13 @@
+{
+  "name": "libgusb",
+  "version": "0.4.8",
+  "source": {
+    "url": "https://download.gnome.org/sources/libgusb/0.4/libgusb-0.4.8.tar.xz"
+  },
+  "depends": ["glib2", "libusb"],
+  "build": [
+    "meson setup build --prefix=/usr",
+    "ninja -C build",
+    "ninja -C build install DESTDIR=$ROOTFS_DIR"
+  ]
+}

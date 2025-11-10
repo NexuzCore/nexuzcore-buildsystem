@@ -1,0 +1,1 @@
+{ "name": "texinfo", "version": "7.1", "urls": ["https://ftp.gnu.org/gnu/texinfo/texinfo-7.1.tar.xz"], "src_dir": "work/texinfo-{version}", "deps": [] }

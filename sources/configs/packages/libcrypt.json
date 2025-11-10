@@ -1,0 +1,14 @@
+{
+  "name": "libgcrypt",
+  "version": "1.10.1",
+  "urls": [
+    "https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.10.1.tar.bz2"
+  ],
+  "src_dir": "work/libgcrypt-{version}",
+  "deps": ["libgpg-error", "pkgconf"],
+  "configure": [
+    "./configure",
+    "--prefix=/usr",
+    "--disable-static"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "libusb",
+  "version": "host",
+  "urls": [],
+  "src_dir": "",
+  "deps": [],
+  "configure": []
+}

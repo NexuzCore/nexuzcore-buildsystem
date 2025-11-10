@@ -1,0 +1,15 @@
+{
+  "name": "perl",
+  "version": "5.40.0",
+  "urls": [
+    "https://www.cpan.org/src/5.0/perl-5.40.0.tar.gz"
+  ],
+  "src_dir": "work/perl-{version}",
+  "deps": [],
+  "configure": [
+    "sh", "Configure",
+    "-des",
+    "-Dprefix=/usr",
+    "-Duseshrplib"
+  ]
+}

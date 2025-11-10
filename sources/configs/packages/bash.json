@@ -1,0 +1,11 @@
+{
+  "name": "bash",
+  "version": "5.2",
+  "urls": [
+    "https://mirrors.kernel.org/gnu/bash/bash-5.2.tar.gz",
+    "https://ftp.gnu.org/gnu/bash/bash-5.2.tar.gz",
+    "https://ftp.yzu.edu.tw/gnu/bash/bash-5.2.tar.gz"
+  ],
+  "src_dir": "work/bash-{version}",
+  "deps": []
+}

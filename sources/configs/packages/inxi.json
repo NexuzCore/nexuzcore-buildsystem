@@ -1,0 +1,10 @@
+{
+  "name": "inxi",
+  "version": "3.3.34-1",
+  "urls": [
+    "https://github.com/smxi/inxi/archive/refs/tags/3.3.34-1.tar.gz"
+  ],
+  "src_dir": "work/inxi-{version}",
+  "deps": ["perl"],
+  "configure": []
+}

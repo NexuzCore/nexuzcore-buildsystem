@@ -1,0 +1,8 @@
+{
+  "name": "libpopt",
+  "version": "1.19",
+  "urls": ["https://ftp.gnu.org/pub/gnu/popt/popt-1.19.tar.gz"],
+  "src_dir": "work/popt-{version}",
+  "deps": [],
+  "configure": ["./configure", "--prefix=/usr"]
+}

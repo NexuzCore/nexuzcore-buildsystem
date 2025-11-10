@@ -1,0 +1,12 @@
+{
+  "name": "util-linux",
+  "version": "2.40.2",
+  "urls": [
+    "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz"
+  ],
+  "src_dir": "work/util-linux-{version}",
+  "deps": ["zlib", "ncurses"],
+  "configure": [
+    "./configure", "--prefix=/usr", "--disable-nls"
+  ]
+}

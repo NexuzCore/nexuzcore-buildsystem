@@ -1,0 +1,8 @@
+{
+  "name": "bash",
+  "version": "host",
+  "urls": [],
+  "src_dir": "",
+  "deps": [],
+  "configure": []
+}

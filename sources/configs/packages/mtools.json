@@ -1,0 +1,1 @@
+{ "name": "mtools", "version": "4.0.44", "urls": ["https://ftp.gnu.org/gnu/mtools/mtools-4.0.44.tar.gz"], "src_dir": "work/mtools-{version}", "deps": [] }

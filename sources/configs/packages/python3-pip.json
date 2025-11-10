@@ -1,0 +1,9 @@
+{
+  "name": "python3-pip",
+  "version": "24.0",
+  "urls": [
+    "https://files.pythonhosted.org/packages/source/p/pip/pip-24.0.tar.gz"
+  ],
+  "src_dir": "work/pip-{version}",
+  "deps": ["python3"]
+}

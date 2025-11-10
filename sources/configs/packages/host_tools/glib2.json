@@ -1,0 +1,8 @@
+{
+  "name": "glib2",
+  "version": "host",
+  "urls": [],
+  "src_dir": "",
+  "deps": [],
+  "configure": []
+}

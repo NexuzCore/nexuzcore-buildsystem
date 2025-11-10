@@ -1,0 +1,1 @@
+{ "name": "cmake", "version": "3.29.5", "urls": ["https://github.com/Kitware/CMake/releases/download/v3.29.5/cmake-3.29.5.tar.gz"], "src_dir": "work/cmake-{version}", "deps": ["make","pkgconf","curl","ncurses","zlib"] }

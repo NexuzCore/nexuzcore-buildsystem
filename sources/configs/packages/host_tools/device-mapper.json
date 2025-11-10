@@ -1,0 +1,8 @@
+{
+  "name": "device-mapper",
+  "version": "host",
+  "urls": [],
+  "src_dir": "",
+  "deps": [],
+  "configure": []
+}
