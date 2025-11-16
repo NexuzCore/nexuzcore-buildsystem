@@ -38,7 +38,7 @@ from manager.package_manager import build_opkg
 
 from core.logger import success, info, warning, error
 
-
+from manager.host_check import check_host_prerequisites
 
 # ---------------------------
 # Projektverzeichnisse
@@ -83,6 +83,8 @@ def parse():
     parser.add_argument("--config", type=str, default="busybox.json", help="Pfad zur BusyBox JSON Konfig")
     parser.add_argument("--arch", type=str, help="Überschreibe die Zielarchitektur (z.B. arm64, x86_64)")
     parser.add_argument("--ignore-errors", action="store_true", help="Fehler ignorieren und weitermachen")
+    parser.add_argument("--ignore-host-tools", action="store_true", help="Ignoriere fehlende Host-Tools beim Build-Prüfen")
+
     args = parser.parse_args()
     return args
 
@@ -138,6 +140,9 @@ def main():
     # Get User's CommandLine Arguments
     args = parse()
     
+    check_host_prerequisites(exit_on_fail=not args.ignore_host_tools)
+
+    
     # Load the configs from the json
     version, urls, cross_compile, extra_cfg, config_patches, busybox_src_dir = configs(args)
     
@@ -147,6 +152,7 @@ def main():
     # Downloads, Extracts, Configures, Compiles & Finnaly Installs Busybox into the RootFS
     busybox(args)
     
+
 
 
     # Build Packages
