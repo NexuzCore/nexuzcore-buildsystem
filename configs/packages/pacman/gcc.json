@@ -1,0 +1,5 @@
+{
+  "name": "gcc",
+  "source": "pacman",
+  "packages": ["gcc"]
+}

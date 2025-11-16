@@ -2,8 +2,22 @@
   "name": "mpfr",
   "version": "4.2.1",
   "urls": [
-    "https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz"
+    "https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz",
+    "https://mirrors.kernel.org/gnu/mpfr/mpfr-4.2.1.tar.xz",
+    "https://ftpmirror.gnu.org/mpfr/mpfr-4.2.1.tar.xz"
   ],
   "src_dir": "work/mpfr-{version}",
-  "deps": ["gmp"]
+  "deps": ["gmp"],
+  "configure": [
+    "./configure",
+    "--host={host}",
+    "--prefix={rootfs}/usr",
+    "--with-gmp={rootfs}/usr",
+    "--disable-static",
+    "--enable-shared"
+  ],
+  "build_options": {
+    "parallel_jobs": "auto",
+    "install_prefix": "{rootfs}/usr"
+  }
 }

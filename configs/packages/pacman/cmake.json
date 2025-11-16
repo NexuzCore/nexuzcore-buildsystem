@@ -1,0 +1,5 @@
+{
+  "name": "cmake",
+  "source": "pacman",
+  "packages": ["cmake"]
+}

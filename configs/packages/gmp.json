@@ -2,8 +2,21 @@
   "name": "gmp",
   "version": "6.3.0",
   "urls": [
-    "https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz"
+    "https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz",
+    "https://mirrors.kernel.org/gnu/gmp/gmp-6.3.0.tar.xz",
+    "https://ftpmirror.gnu.org/gmp/gmp-6.3.0.tar.xz"
   ],
   "src_dir": "work/gmp-{version}",
-  "deps": []
+  "deps": [],
+  "configure": [
+    "./configure",
+    "--host={host}",
+    "--prefix={rootfs}/usr",
+    "--disable-static",
+    "--enable-shared"
+  ],
+  "build_options": {
+    "parallel_jobs": "auto",
+    "install_prefix": "{rootfs}/usr"
+  }
 }

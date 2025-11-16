@@ -2,8 +2,23 @@
   "name": "mpc",
   "version": "1.3.1",
   "urls": [
-    "https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz"
+    "https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz",
+    "https://mirrors.kernel.org/gnu/mpc/mpc-1.3.1.tar.gz",
+    "https://ftpmirror.gnu.org/mpc/mpc-1.3.1.tar.gz"
   ],
   "src_dir": "work/mpc-{version}",
-  "deps": ["gmp", "mpfr"]
+  "deps": ["gmp", "mpfr"],
+  "configure": [
+    "./configure",
+    "--host={host}",
+    "--prefix={rootfs}/usr",
+    "--with-gmp={rootfs}/usr",
+    "--with-mpfr={rootfs}/usr",
+    "--disable-static",
+    "--enable-shared"
+  ],
+  "build_options": {
+    "parallel_jobs": "auto",
+    "install_prefix": "{rootfs}/usr"
+  }
 }

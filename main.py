@@ -26,13 +26,15 @@ from utils.create import (
 from core.busybox import build_busybox
 from core.modify_rootfs import chroot_with_qemu
 
-
-
-from manager.package_modul import build_all
-from manager.pacman_modul import pacman_build_all
-
-
 from manager.paketmanager import build_all_and_install_pkg_manager
+
+
+# from manager.package_modul import build_all_packages
+# from manager.pacman_modul import pacman_build_all
+
+
+
+from manager.pacman_builder import build_pacman_packages
 
 
 
@@ -157,38 +159,36 @@ def busybox(args, work_dir, downloads_dir, rootfs_dir):
 # Main
 # ---------------------------
 def main():
-    # Get User's CommandLine Arguments
+
+
     args = parse()
     
     check_host_prerequisites(exit_on_fail=not args.ignore_host_tools)
 
-    
-    # Load the configs from the json
     version, urls, cross_compile, extra_cfg, config_patches, busybox_src_dir = configs(args)
     
-    # Creates the Workenviroment and the Target RootFS
     create_rootfs(args)
     
-    # Downloads, Extracts, Configures, Compiles & Finnaly Installs Busybox into the RootFS
-    busybox(args, work_dir, downloads_dir, rootfs_dir)
     
-
+    
+    
+    busybox(args, work_dir, downloads_dir, rootfs_dir)
     
     install_package_manager(args=args, downloads_dir=downloads_dir, work_dir=work_dir, rootfs_dir=rootfs_dir, configs_dir=configs_dir)
   
-
-    # Build Packages
-    build_all(args, configs_dir, work_dir, downloads_dir, rootfs_dir)
+  
+    build_pacman_packages(args, rootfs_dir)
     
 
-    
-    # Chroot into new RootFS
-    # chroot(busybox_src_dir=busybox_src_dir, rootfs_dir=rootfs_dir, arch=args.arch)
     chroot_with_qemu(
         rootfs_dir=rootfs_dir,
         arch=args.arch
     )
     
+
+
+
+
 
 
 if __name__ == "__main__":
