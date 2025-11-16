@@ -1,24 +1,30 @@
-import requests, tarfile, zipfile
-
-
-
+import requests
+import tarfile
+import zipfile
 from pathlib import Path
-from tqdm import tqdm
-
+from rich.progress import (
+    Progress,
+    BarColumn,
+    DownloadColumn,
+    TextColumn,
+    TimeRemainingColumn,
+    TransferSpeedColumn,
+)
+from rich.console import Console
 from core.logger import success, info, warning, error
+
+console = Console()
 
 
 def download_file(urls, dest_dir: Path, timeout: int = 60) -> Path:
     """
     Lädt eine Datei via HTTP/HTTPS herunter.
-    - Akzeptiert entweder einen einzelnen URL (str)
-      oder eine Liste von URLs (list[str]) als Mirror-Fallback.
+    Unterstützt mehrere Mirror-URLs als Fallback.
+    Zeigt modernes TUI mit ETA, Fortschritt, Dateigröße und Zielpfad.
     """
-    
     dest_dir = Path(dest_dir)
     dest_dir.mkdir(parents=True, exist_ok=True)
 
-    # Falls nur ein String übergeben wurde → in Liste packen
     if isinstance(urls, str):
         urls = [urls]
 
@@ -27,30 +33,41 @@ def download_file(urls, dest_dir: Path, timeout: int = 60) -> Path:
         filename = url.split("/")[-1]
         dest = dest_dir / filename
 
-        # Bereits vorhanden?
         if dest.exists():
-            warning(f"Console > {filename} bereits vorhanden, überspringe Download.")
+            warning(f"{filename} bereits vorhanden, überspringe Download.")
             return dest
 
-        info(f"Console > Versuche Download von {url} ...")
+        info(f"Versuche Download von {url} ...")
         try:
-            response = requests.get(url, stream=True, timeout=timeout)
-            response.raise_for_status()
-            total = int(response.headers.get("content-length", 0))
+            with requests.get(url, stream=True, timeout=timeout) as response:
+                response.raise_for_status()
+                total = int(response.headers.get("content-length", 0))
 
-            with open(dest, "wb") as f, tqdm(
-                desc=f"Downloading {filename}",
-                total=total,
-                unit="B",
-                unit_scale=True,
-                unit_divisor=1024,
-            ) as bar:
-                for chunk in response.iter_content(chunk_size=1024):
-                    f.write(chunk)
-                    bar.update(len(chunk))
+                progress = Progress(
+                    TextColumn("[bold blue]{task.fields[filename]}", justify="right"),
+                    BarColumn(bar_width=None),
+                    DownloadColumn(),
+                    TransferSpeedColumn(),
+                    TimeRemainingColumn(),
+                    TextColumn("[green]{task.fields[path]}"),
+                )
 
-            success(f"Console > Download abgeschlossen: {dest}")
+                with progress:
+                    task = progress.add_task(
+                        "download",
+                        filename=filename,
+                        path=str(dest_dir),
+                        total=total,
+                    )
+
+                    with open(dest, "wb") as f:
+                        for chunk in response.iter_content(chunk_size=1024 * 32):
+                            f.write(chunk)
+                            progress.update(task, advance=len(chunk))
+
+            success(f"Download abgeschlossen: {dest}")
             return dest
+
         except Exception as e:
             error(f"⚠️ Fehler beim Download von {url}: {e}")
             last_error = e
@@ -59,45 +76,65 @@ def download_file(urls, dest_dir: Path, timeout: int = 60) -> Path:
     raise RuntimeError(f"Download fehlgeschlagen. Letzter Fehler: {last_error}")
 
 
-
-
-
 def extract_archive(archive_path: Path, extract_to: Path) -> Path:
     """
     Entpackt ein Archiv in ein Zielverzeichnis.
     Unterstützt: .tar.gz, .tgz, .tar.bz2, .tar.xz, .tar, .zip
+    Zeigt Fortschritt mit ETA für große Archive.
     """
-    
-    
     archive_path = Path(archive_path)
     extract_to = Path(extract_to)
     extract_to.mkdir(parents=True, exist_ok=True)
 
     name = archive_path.name.lower()
+    info(f"Entpacke {archive_path} nach {extract_to} ...")
 
-    if name.endswith((".tar.gz", ".tgz")):
-        mode = "r:gz"
-        with tarfile.open(archive_path, mode) as tar:
-            tar.extractall(path=extract_to)
-    elif name.endswith(".tar.bz2"):
-        with tarfile.open(archive_path, "r:bz2") as tar:
-            tar.extractall(path=extract_to)
-    elif name.endswith(".tar.xz"):
-        with tarfile.open(archive_path, "r:xz") as tar:
-            tar.extractall(path=extract_to)
-    elif name.endswith(".tar"):
-        with tarfile.open(archive_path, "r:") as tar:
-            tar.extractall(path=extract_to)
-    elif name.endswith(".zip"):
-        with zipfile.ZipFile(archive_path, "r") as zip_ref:
-            zip_ref.extractall(path=extract_to)
-    else:
-        raise ValueError(f"Unsupported archive format: {archive_path}")
+    progress = Progress(
+        TextColumn("[bold blue]{task.fields[filename]}"),
+        BarColumn(bar_width=None),
+        TextColumn("[green]{task.completed}/{task.total} Dateien"),
+        TimeRemainingColumn(),
+    )
 
-    success(f"Console > Entpackt: {archive_path.name} → {extract_to}")
+    with progress:
+        if name.endswith((".tar.gz", ".tgz", ".tar.bz2", ".tar.xz", ".tar")):
+            mode = "r"
+            if name.endswith(".tar.gz") or name.endswith(".tgz"):
+                mode = "r:gz"
+            elif name.endswith(".tar.bz2"):
+                mode = "r:bz2"
+            elif name.endswith(".tar.xz"):
+                mode = "r:xz"
 
-    # Falls nur ein Unterordner enthalten ist, direkt diesen zurückgeben
+            with tarfile.open(archive_path, mode) as tar:
+                members = tar.getmembers()
+                task = progress.add_task("extract", filename=archive_path.name, total=len(members))
+                for member in members:
+                    tar.extract(member, path=extract_to)
+                    progress.update(task, advance=1)
+
+        elif name.endswith(".zip"):
+            with zipfile.ZipFile(archive_path, "r") as zip_ref:
+                members = zip_ref.namelist()
+                task = progress.add_task("extract", filename=archive_path.name, total=len(members))
+                for member in members:
+                    zip_ref.extract(member, path=extract_to)
+                    progress.update(task, advance=1)
+        else:
+            raise ValueError(f"Unsupported archive format: {archive_path}")
+
+    success(f"Entpackt: {archive_path.name} → {extract_to}")
+
     dirs = [d for d in extract_to.iterdir() if d.is_dir()]
     if len(dirs) == 1:
         return dirs[0]
     return extract_to
+
+
+def download_and_extract(urls, dest_dir: Path, extract_to: Path) -> Path:
+    """
+    Kombinierter Ablauf: Download + Entpacken.
+    """
+    downloaded_file = download_file(urls, dest_dir)
+    extracted_path = extract_archive(downloaded_file, extract_to)
+    return extracted_path

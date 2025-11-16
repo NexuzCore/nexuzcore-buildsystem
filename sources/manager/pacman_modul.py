@@ -4,7 +4,7 @@ import multiprocessing
 from pathlib import Path
 import subprocess
 from utils.download import download_file, extract_archive
-from utils.execute2 import run_command_live
+from utils.execute import run_command_live
 from utils.load import load_config
 from core.logger import success, info, warning, error
 from manager.opkg import build_opkg

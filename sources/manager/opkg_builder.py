@@ -29,11 +29,9 @@ def install_opkg(rootfs_dir: Path, work_dir: Path):
 
     # Download
     tarball = download_file([OPKG_URL], work_dir)
-    info(f"📦 OPKG Tarball heruntergeladen: {tarball}")
+    info(f"📦 OPKG Tarball heruntergeladen: {tarball} nach: {work_dir}")
 
-    # Extrahieren
-    extract_archive(tarball, work_dir)
-    info(f"📂 OPKG entpackt in: {work_dir}")
+ 
 
     # Prüfen ob sbin/bin existiert
     bin_dir = rootfs_dir / "usr" / "bin"

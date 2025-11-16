@@ -3,7 +3,7 @@ import multiprocessing
 from pathlib import Path
 
 from utils.download import download_file, extract_archive
-from utils.execute2 import run_command_live
+from utils.execute import run_command_live
 from utils.load import load_config
 
 

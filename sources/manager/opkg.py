@@ -3,7 +3,7 @@ from pathlib import Path
 import shutil
 
 from utils.download import download_file, extract_archive
-from utils.execute2 import run_command_live
+from utils.execute import run_command_live
 from core.logger import success, info, warning, error
 
 
