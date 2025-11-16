@@ -171,10 +171,9 @@ def main():
     create_rootfs(args)
     
     # Downloads, Extracts, Configures, Compiles & Finnaly Installs Busybox into the RootFS
-    busybox(args)
+    busybox(args, work_dir, downloads_dir, rootfs_dir)
     
     install_package_manager(args=args, downloads_dir=downloads_dir, work_dir=work_dir, rootfs_dir=rootfs_dir, configs_dir=configs_dir)
-    install_opkg(rootfs_dir, work_dir)
     build_opkg(args.arch)
 
 

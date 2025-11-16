@@ -5,7 +5,7 @@ import multiprocessing
 from pathlib import Path
 from utils.load import load_config
 from utils.download import download_file, extract_archive
-from utils.execute import run_command_live, run_command
+from utils.execute2 import run_command_live, run_command
 
 from core.logger import success, info, warning, error
 
