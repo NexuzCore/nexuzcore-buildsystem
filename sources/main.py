@@ -29,11 +29,15 @@ from core.modify_rootfs import chroot_with_qemu
 
 
 
-#from manager.pkg import build_all
-from manager.manager import build_all
+# from manager.manager import build_all
+from manager.package_modul import build_all
+from manager.pacman_modul import pacman_build_all
 
 
 from manager.package_manager import build_opkg
+from manager.opkg_builder import install_opkg, test_opkg
+from manager.paketmanager import build_all_and_install_pkg_manager
+
 
 
 from core.logger import success, info, warning, error
@@ -116,9 +120,26 @@ def create_rootfs(args):
     success("[*] RootFS Struktur erfolgreich erstellt!")
     
 
+def install_package_manager(args, configs_dir, rootfs_dir, downloads_dir, work_dir):
+    try:
+        # Hier findet der eigentliche Bau statt.
+        # Wichtig: Diese Funktion muss zuerst alle Kernpakete (libc, gcc, etc.) bauen
+        # und anschließend den Paketmanager installieren.
+        build_all_and_install_pkg_manager(
+            args, 
+            configs_dir, 
+            work_dir, 
+            downloads_dir, 
+            rootfs_dir
+        )
+
+        success("\n🎉 Gesamter Build- und Installationsprozess erfolgreich abgeschlossen!")
+            
+    except Exception as e:
+        error(f"\nFATALER FEHLER: Der Build-Prozess wurde abgebrochen. {e}")
     
     
-def busybox(args):
+def busybox(args, work_dir, downloads_dir, rootfs_dir):
     info("[*] Starte BusyBox-Build...")
     build_busybox(
         args=args,
@@ -152,14 +173,15 @@ def main():
     # Downloads, Extracts, Configures, Compiles & Finnaly Installs Busybox into the RootFS
     busybox(args)
     
-
+    install_package_manager(args=args, downloads_dir=downloads_dir, work_dir=work_dir, rootfs_dir=rootfs_dir, configs_dir=configs_dir)
+    install_opkg(rootfs_dir, work_dir)
+    build_opkg(args.arch)
 
 
     # Build Packages
     build_all(args, configs_dir, work_dir, downloads_dir, rootfs_dir)
     
 
-    build_opkg(args.arch)
     
     # Chroot into new RootFS
     # chroot(busybox_src_dir=busybox_src_dir, rootfs_dir=rootfs_dir, arch=args.arch)

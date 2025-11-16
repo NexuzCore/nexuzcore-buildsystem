@@ -57,10 +57,8 @@ def patch_config(busybox_src_dir: Path, patch_options: dict):
 
 
 
-
-
 def build_busybox(args, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
-    """Loads, Extracts, Configures, Compilies and Installs Busybox into target FS"""
+    """Loads, Extracts, Configures, Compiles and Installs Busybox into target FS"""
     
     # Load Config
     config = load_config(Path("configs") / args.config)
@@ -76,10 +74,7 @@ def build_busybox(args, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
     config_patches = config.get("config_patch", [])
     config_patch_dict = parse_patch_list(config_patches)
 
-    info("[*] BusyBox Source Dir:", busybox_src_dir)
-    
-    
-    
+    info(f"[*] BusyBox Source Dir: {busybox_src_dir}")
     
     # Adjust Architecture
     if args.arch:
@@ -115,19 +110,20 @@ def build_busybox(args, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
     env["CFLAGS"] = cross_compile.get("cflags", "")
     env["LDFLAGS"] = cross_compile.get("ldflags", "")
 
-
-
     # 1️⃣ defconfig created
-    run_command_live(["make", "defconfig"], cwd=busybox_src_dir, env=env, desc="BusyBox defconfig erstellen")
+    run_command_live(
+        ["make", "defconfig"], 
+        cwd=busybox_src_dir, 
+        env=env, 
+        desc="BusyBox defconfig erstellen"
+    )
 
     # 2️⃣ .config patch (TC deactivated + optional extra_cfg)
-    info("Console > Patching Busybox's: -> .config - file !.. .. . \n With:")
-    patch_dict = parse_patch_list(config["config_patch"])
-    info(patch_dict)
-    info(extra_cfg)
+    info(f"Console > Patching BusyBox's .config file with:")
+    info(f"Patch Dict: {config_patch_dict}")
+    info(f"Extra Config: {extra_cfg}")
     patch_config(busybox_src_dir, {**DEFAULT_PATCH, **config_patch_dict, **extra_cfg})
 
-    
     # 3️⃣ oldconfig non-interaktiv
     run_command_live(
         ["make", "oldconfig", "KCONFIG_ALLCONFIG=/dev/null"],
@@ -136,19 +132,25 @@ def build_busybox(args, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
         desc="BusyBox oldconfig (non-interaktiv)"
     )
 
-
     # 4️⃣ Kompilieren mit allen Cores
-    info("Detecting available CPU-Cores for compiling source-code ... .. .")
+    info("Detecting available CPU-Cores for compiling source-code ...")
     num_cores = multiprocessing.cpu_count()
     success(f"Detected: {num_cores}")
     
     info(f"Console > Compiling BusyBox with {num_cores} Cores...")
-    run_command_live(["make", f"-j{num_cores}"], cwd=busybox_src_dir, env=env, desc="BusyBox kompilieren")
+    run_command_live(
+        ["make", f"-j{num_cores}"], 
+        cwd=busybox_src_dir, 
+        env=env, 
+        desc="BusyBox kompilieren"
+    )
 
     # 5️⃣ Installation ins RootFS
-    run_command_live(["make", f"CONFIG_PREFIX={rootfs_dir}", "install"], cwd=busybox_src_dir, env=env, desc="BusyBox installieren")
+    run_command_live(
+        ["make", f"CONFIG_PREFIX={rootfs_dir}", "install"], 
+        cwd=busybox_src_dir, 
+        env=env, 
+        desc="BusyBox installieren"
+    )
 
     success(f"✅ BusyBox {version} successfully installed in {rootfs_dir}")
-    
-    
-    
