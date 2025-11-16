@@ -1,1 +1,7 @@
-{ "name": "opkg", "version": "0.6.2", "urls": ["https://downloads.yoctoproject.org/releases/opkg/opkg-0.6.2.tar.gz"], "src_dir": "work/opkg-{version}", "deps": ["curl","openssl","zlib","pkgconf"] }
+{
+  "name": "opkg",
+  "version": "2025.11",
+  "urls": ["https://git.yoctoproject.org/opkg.git"],
+  "deps": [],
+  "configure": []
+}

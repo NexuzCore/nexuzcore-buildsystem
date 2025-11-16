@@ -6,6 +6,8 @@ from utils.download import download_file, extract_archive
 from utils.execute2 import run_command_live
 from utils.load import load_config
 
+from manager.opkg import build_opkg
+
 from core.logger import success, info, warning, error
 
 
@@ -114,9 +116,20 @@ def resolve_build_order(packages: dict) -> list[str]:
 # ──────────────────────────────────────────────
 def build_generic(args, conf, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
     # Host-Tool-Check
+    
+    name = conf["name"]
+
+    # Spezielle Behandlung für opkg
+    if name == "opkg":
+        build_opkg(args, conf, work_dir, downloads_dir, rootfs_dir)
+        return True  # Build abgeschlossen
+
+    # Host-Tool-Check
     if conf.get("version") == "host":
         info(f"⚡ {conf['name']} ist ein Host-Tool, überspringe Build.")
         return True  # erfolgreich "gebaut"
+    
+    
 
     name = conf["name"]
     version = conf["version"]

@@ -11,7 +11,7 @@ from core.logger import success, info, warning, error
 #  OPKG Builder für BusyBox RootFS
 # ──────────────────────────────────────────────
 
-OPKG_URL = "https://downloads.openwrt.org/snapshots/trunk/x86_64/packages/base/opkg_2023-09-12_x86_64.ipk"
+OPKG_URL = "https://downloads.openwrt.org/releases/packages-24.10/x86_64/base/opkg_2024.10.16~38eccbb1-r1_x86_64.ipk"
 OPKG_CONF_TEMPLATE = """\
 src/gz base http://downloads.openwrt.org/releases/22.03.8/packages/x86_64/base
 dest root /

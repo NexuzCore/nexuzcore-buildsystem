@@ -7,7 +7,7 @@ from utils.download import download_file, extract_archive
 from utils.execute2 import run_command_live
 from utils.load import load_config
 from core.logger import success, info, warning, error
-
+from manager.opkg import build_opkg
 # ──────────────────────────────────────────────
 # Host-Tools
 # ──────────────────────────────────────────────
@@ -103,9 +103,17 @@ def pacman_download_package(package_name: str, arch: str, download_dir: Path):
 # Build-Logik wie in deinem System
 # ──────────────────────────────────────────────
 def build_generic(args, conf, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
+    name = conf["name"]
+
+    # Spezielle Behandlung für opkg
+    if name == "opkg":
+        build_opkg(args, conf, work_dir, downloads_dir, rootfs_dir)
+        return True  # Build abgeschlossen
+
+    # Host-Tool-Check
     if conf.get("version") == "host":
         info(f"⚡ {conf['name']} ist ein Host-Tool, überspringe Build.")
-        return
+        return True  # erfolgreich "gebaut"
 
     name = conf["name"]
     version = conf["version"]
