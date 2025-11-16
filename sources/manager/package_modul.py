@@ -14,8 +14,6 @@ from core.logger import success, info, warning, error
 # ──────────────────────────────────────────────
 #  Host-Tools, die nicht gebaut werden
 # ──────────────────────────────────────────────
-# Host-Tools: Werden nicht gebaut, dienen nur als bekannte Abhängigkeiten
-# Host-Tools: werden nicht gebaut, dienen nur als bekannte Abhängigkeiten
 HOST_TOOLS = [
     "perl",
     "python3",

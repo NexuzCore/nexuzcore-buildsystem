@@ -33,7 +33,6 @@ from manager.package_modul import build_all
 from manager.pacman_modul import pacman_build_all
 
 
-from manager.opkg import build_opkg
 from manager.opkg_builder import install_opkg, test_opkg
 from manager.paketmanager import build_all_and_install_pkg_manager
 
@@ -182,6 +181,7 @@ def main():
     install_package_manager(args=args, downloads_dir=downloads_dir, work_dir=work_dir, rootfs_dir=rootfs_dir, configs_dir=configs_dir)
   
 
+    pacman_build_all(args, configs_dir, work_dir, downloads_dir, rootfs_dir)
     # Build Packages
     build_all(args, configs_dir, work_dir, downloads_dir, rootfs_dir)
     

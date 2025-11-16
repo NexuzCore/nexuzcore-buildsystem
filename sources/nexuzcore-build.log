@@ -1,0 +1,229 @@
+[error] | Es fehlen folgende Build-Host Tools:
+  libusb, util-linux, device-mapper
+[error] | Installiere sie unter Arch Linux mit:
+[info] | Console > Configuring BuildSystem ::::...:.. . :: .--. .
+[info] | [*] Starte RootFS-Erstellung...
+[info] | [INFO] Creating main directories...
+[success] | [INFO] Created work
+[success] | [INFO] Created work/downloads
+[success] | [INFO] Created work/build
+[success] | [INFO] Created work/output
+[success] | [INFO] Created work/build/rootfs
+[success] | [INFO] Created work/build/bootfs
+[info] | [INFO] Creating rootfs directories...
+[success] | [INFO] Created work/build/rootfs/bin
+[success] | [INFO] Created work/build/rootfs/sbin
+[success] | [INFO] Created work/build/rootfs/lib
+[success] | [INFO] Created work/build/rootfs/lib64
+[success] | [INFO] Created work/build/rootfs/boot
+[success] | [INFO] Created work/build/rootfs/dev
+[success] | [INFO] Created work/build/rootfs/proc
+[success] | [INFO] Created work/build/rootfs/sys
+[success] | [INFO] Created work/build/rootfs/tmp
+[success] | [INFO] Created work/build/rootfs/mnt
+[success] | [INFO] Created work/build/rootfs/media
+[success] | [INFO] Created work/build/rootfs/opt
+[success] | [INFO] Created work/build/rootfs/home
+[success] | [INFO] Created work/build/rootfs/root
+[success] | [INFO] Created work/build/rootfs/run
+[success] | [INFO] Created work/build/rootfs/root/.ssh
+[success] | [INFO] Created work/build/rootfs/etc
+[success] | [INFO] Created work/build/rootfs/etc/init.d
+[success] | [INFO] Created work/build/rootfs/etc/network
+[success] | [INFO] Created work/build/rootfs/etc/rc.d
+[success] | [INFO] Created work/build/rootfs/etc/skel
+[success] | [INFO] Created work/build/rootfs/etc/ssh
+[success] | [INFO] Created work/build/rootfs/etc/systemd
+[success] | [INFO] Created work/build/rootfs/etc/default
+[success] | [INFO] Created work/build/rootfs/etc/sysconfig
+[success] | [INFO] Created work/build/rootfs/var
+[success] | [INFO] Created work/build/rootfs/var/log
+[success] | [INFO] Created work/build/rootfs/var/run
+[success] | [INFO] Created work/build/rootfs/var/lock
+[success] | [INFO] Created work/build/rootfs/var/tmp
+[success] | [INFO] Created work/build/rootfs/var/spool
+[success] | [INFO] Created work/build/rootfs/var/lib
+[success] | [INFO] Created work/build/rootfs/usr/bin
+[success] | [INFO] Created work/build/rootfs/usr/sbin
+[success] | [INFO] Created work/build/rootfs/usr/lib
+[success] | [INFO] Created work/build/rootfs/usr/include
+[success] | [INFO] Created work/build/rootfs/usr/share/man
+[success] | [INFO] Created work/build/rootfs/usr/share/doc
+[success] | [INFO] Created work/build/rootfs/usr/share/locale
+[success] | [INFO] Created work/build/rootfs/usr/local/bin
+[success] | [INFO] Created work/build/rootfs/usr/local/sbin
+[success] | [INFO] Created work/build/rootfs/usr/local/lib
+[success] | [INFO] Created work/build/rootfs/usr/local/etc
+[success] | [INFO] Created work/build/rootfs/usr/local/share
+[success] | [INFO] Created work/build/rootfs/srv/www
+[success] | [INFO] All directories created.
+[info] | [INFO] Creating /etc configuration files...
+[success] | [INFO] Created work/build/rootfs/etc/inittab
+[success] | [INFO] Created work/build/rootfs/etc/fstab
+[success] | [INFO] Created work/build/rootfs/etc/hostname
+[success] | [INFO] Created work/build/rootfs/etc/hosts
+[success] | [INFO] Created work/build/rootfs/etc/issue
+[success] | [INFO] Created work/build/rootfs/etc/motd
+[success] | [INFO] Created work/build/rootfs/etc/network/interfaces
+[success] | [INFO] Created work/build/rootfs/etc/resolv.conf
+[success] | [INFO] Created work/build/rootfs/etc/init.d/rcS
+[success] | [INFO] Created work/build/rootfs/etc/profile
+[info] | [INFO] Creating device nodes in /dev...
+[success] | [INFO] Created device node work/build/rootfs/dev/null
+[success] | [INFO] Created device node work/build/rootfs/dev/zero
+[success] | [INFO] Created device node work/build/rootfs/dev/console
+[success] | [INFO] Created device node work/build/rootfs/dev/tty
+[success] | [INFO] Created device node work/build/rootfs/dev/tty0
+[success] | [INFO] Created device node work/build/rootfs/dev/tty1
+[success] | [INFO] Created device node work/build/rootfs/dev/random
+[success] | [INFO] Created device node work/build/rootfs/dev/urandom
+[success] | [SUCCESS] Created /dev/pts directory
+[success] | [SUCCESS] Created BusyBox init script at work/build/rootfs/init
+[warning] | [WARN] BusyBox not found; symlinks skipped
+[info] | Console > Copying Qemu- Shell Emulation File to RootFS!!!
+[success] | [SUCCESS] QEMU-Binärdatei qemu-x86_64-static nach work/build/rootfs/usr/bin/qemu-x86_64-static kopiert.
+[info] | [INFO] Setting permissions for work/build/rootfs...
+[success] | [INFO] Permissions set.
+[success] | [*] RootFS Struktur erfolgreich erstellt!
+[info] | [*] Starte BusyBox-Build...
+[info] | [*] BusyBox Source Dir: work/busybox-1.36.1
+[info] | Console > Lade BusyBox 1.36.1 herunter...
+[info] | Versuche Download von https://busybox.net/downloads/busybox-1.36.1.tar.bz2 ...
+[success] | Download abgeschlossen: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/busybox-1.36.1.tar.bz2
+[info] | Console > Entpacke BusyBox 1.36.1...
+[info] | Entpacke /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/busybox-1.36.1.tar.bz2 nach /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work ...
+[success] | Entpackt: busybox-1.36.1.tar.bz2 → /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work
+[info] | Console > BusyBox Quellverzeichnis: work/busybox-1.36.1
+[success] | ✔ 'make defconfig' erfolgreich abgeschlossen.
+[info] | Console > Patching BusyBox's .config file with:
+[info] | Patch Dict: {'CONFIG_STATIC': 'y', 'CONFIG_TC': 'n', 'CONFIG_CROSS_COMPILER_PREFIX': '""'}
+[info] | Extra Config: {'CONFIG_STATIC': 'y', 'CONFIG_TC': 'n', 'CONFIG_CROSS_COMPILER_PREFIX': '""'}
+[success] | Console > .config gepatcht: ['CONFIG_TC', 'CONFIG_STATIC', 'CONFIG_CROSS_COMPILER_PREFIX']
+[success] | ✔ 'make oldconfig KCONFIG_ALLCONFIG=/dev/null' erfolgreich abgeschlossen.
+[info] | Detecting available CPU-Cores for compiling source-code ...
+[success] | Detected: 8
+[info] | Console > Compiling BusyBox with 8 Cores...
+[success] | ✔ 'make -j8' erfolgreich abgeschlossen.
+[success] | ✔ 'make CONFIG_PREFIX=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs install' erfolgreich abgeschlossen.
+[success] | ✅ BusyBox 1.36.1 successfully installed in /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs
+[success] | [+] Fertig! RootFS und BusyBox sind erstellt.
+[info] | 🔧 Installiere opkg in RootFS: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs
+[info] | Versuche Download von https://downloads.openwrt.org/releases/packages-24.10/x86_64/base/opkg_2024.10.16~38eccbb1-r1_x86_64.ipk ...
+[success] | Download abgeschlossen: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/opkg_2024.10.16~38eccbb1-r1_x86_64.ipk
+[info] | 📦 OPKG Tarball heruntergeladen: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/opkg_2024.10.16~38eccbb1-r1_x86_64.ipk nach: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work
+[warning] | ⚠️ Datei nicht gefunden: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/usr/bin/opkg
+[warning] | ⚠️ Datei nicht gefunden: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/usr/lib/opkg
+[info] | ⚙️ OPKG Konfiguration erstellt: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs/etc/opkg/opkg.conf
+[info] | 📂 OPKG Datenbank-Verzeichnis: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs/var/lib/opkg
+[success] | ✅ OPKG erfolgreich ins RootFS eingebunden!
+[info] | ⚡ Teste OPKG Installation im RootFS...
+[error] | OPKG Binary nicht gefunden: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs/usr/bin/opkg
+[info] | 
+⚠️  Simuliere den Abschluss des 'build_all'-Prozesses.
+[info] | 
+=== Installiere Paketmanager im Root-Dateisystem ===
+[info] | ➡️ Wähle Paketmanager: **opkg** für Architektur: **x86_64**
+[info] | ⬇️  Simuliere Download von **opkg**-Binaries für x86_64...
+[info] | 📦 Führe (simulierten) Testlauf von opkg aus...
+[success] | ✔ '/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs/usr/bin/opkg --version' erfolgreich abgeschlossen.
+[success] | ✅ **opkg** (x86_64) erfolgreich in **/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs** installiert (simuliert/Platzhalter).
+[success] | 
+✅ Build-Prozess und Paketmanager-Installation abgeschlossen!
+[success] | 
+🎉 Gesamter Build- und Installationsprozess erfolgreich abgeschlossen!
+[warning] | ⚠️ Überschreibe vorhandenes Paket: glib2
+[warning] | ⚠️ Überschreibe vorhandenes Paket: python3
+[warning] | ⚠️ Überschreibe vorhandenes Paket: util-linux
+[warning] | ⚠️ Überschreibe vorhandenes Paket: gpgme
+[warning] | ⚠️ Überschreibe vorhandenes Paket: bash
+[warning] | ⚠️ Überschreibe vorhandenes Paket: libgcrypt
+[warning] | ⚠️ Überschreibe vorhandenes Paket: libusb
+[warning] | ⚠️ Überschreibe vorhandenes Paket: perl
+[warning] | ⚠️ Überschreibe vorhandenes Paket: libudev
+[warning] | ⚠️ Überschreibe vorhandenes Paket: json-glib
+[warning] | ⚠️ Überschreibe vorhandenes Paket: device-mapper
+[warning] | ⚠️ Überschreibe vorhandenes Paket: libsoup
+[warning] | ⚠️ Überschreibe vorhandenes Paket: pkgconf
+[info] | 📦 Build-Reihenfolge: perl, zlib, binutils, gmp, mpfr, mpc, gcc, pkgconf, libffi, ncurses, python3, glib2, device-mapper, libudev, libusb, bash, util-linux, meson, ninja, libgpg-error, gpgme, json-glib, libsoup, libdevmapper, libgcrypt, lvm2, openssl, curl, make, cmake, wget, m4, autoconf, automake, libtool, nvme-cli, hdparm, gettext, gawk, help2man, texinfo, expat, bison, coreutils, dmidecode, libpopt, nano, mdadm, pciutils, parted, e2fsprogs, python3-pip, fwupd, mtools, inxi, opkg, flex, libgusb, libxmlb, usbutils, sedutil, efivar, cryptsetup, efibootmgr, git, smartmontools, findutils, flashrom
+[info] | 
+=== Baue Paket: perl 5.40.0 ===
+[info] | Versuche Download von https://www.cpan.org/src/5.0/perl-5.40.0.tar.gz ...
+[success] | Download abgeschlossen: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/perl-5.40.0.tar.gz
+[info] | Entpacke /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/perl-5.40.0.tar.gz nach /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work ...
+[success] | Entpackt: perl-5.40.0.tar.gz → /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work
+[info] | 📂 Quellverzeichnis: work/perl-5.40.0
+[success] | ✔ 'sh Configure -des -Dprefix=/usr -Duseshrplib' erfolgreich abgeschlossen.
+[success] | ✔ 'make -j8' erfolgreich abgeschlossen.
+[success] | ✔ 'make DESTDIR=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs install' erfolgreich abgeschlossen.
+[success] | ✅ perl 5.40.0 erfolgreich installiert in /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs
+[info] | 
+=== Baue Paket: zlib 1.3.1 ===
+[info] | Versuche Download von https://zlib.net/zlib-1.3.1.tar.gz ...
+[success] | Download abgeschlossen: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/zlib-1.3.1.tar.gz
+[info] | Entpacke /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/zlib-1.3.1.tar.gz nach /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work ...
+[success] | Entpackt: zlib-1.3.1.tar.gz → /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work
+[info] | 📂 Quellverzeichnis: work/zlib-1.3.1
+[success] | ✔ './configure --prefix=/usr' erfolgreich abgeschlossen.
+[success] | ✔ 'make -j8' erfolgreich abgeschlossen.
+[success] | ✔ 'make DESTDIR=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs install' erfolgreich abgeschlossen.
+[success] | ✅ zlib 1.3.1 erfolgreich installiert in /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs
+[info] | 
+=== Baue Paket: binutils 2.43 ===
+[info] | Versuche Download von https://ftp.gnu.org/gnu/binutils/binutils-2.43.tar.xz ...
+[error] | ⚠️ Fehler beim Download von https://ftp.gnu.org/gnu/binutils/binutils-2.43.tar.xz: HTTPSConnectionPool(host='ftp.gnu.org', port=443): Max retries exceeded with url: /gnu/binutils/binutils-2.43.tar.xz (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7f4e802cfed0>, 'Connection to ftp.gnu.org timed out. (connect timeout=60)'))
+[info] | Versuche Download von https://mirrors.kernel.org/gnu/binutils/binutils-2.43.tar.xz ...
+[success] | Download abgeschlossen: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/binutils-2.43.tar.xz
+[info] | Entpacke /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/binutils-2.43.tar.xz nach /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work ...
+[success] | Entpackt: binutils-2.43.tar.xz → /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work
+[info] | 📂 Quellverzeichnis: work/binutils-2.43
+[success] | ✔ './configure --host=x86_64-linux-gnu --prefix=/usr' erfolgreich abgeschlossen.
+[error] | ❌ Fehler: 'make -j8' mit Exit-Code 2
+[error] | ❌ Fehler: 'make DESTDIR=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs install' mit Exit-Code 2
+[success] | ✅ binutils 2.43 erfolgreich installiert in /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs
+[info] | 
+=== Baue Paket: gmp 6.3.0 ===
+[info] | Versuche Download von https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz ...
+[success] | Download abgeschlossen: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/gmp-6.3.0.tar.xz
+[info] | Entpacke /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/gmp-6.3.0.tar.xz nach /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work ...
+[success] | Entpackt: gmp-6.3.0.tar.xz → /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work
+[info] | 📂 Quellverzeichnis: work/gmp-6.3.0
+[error] | ❌ Fehler: './configure --host={host} --prefix=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs/usr --disable-static --enable-shared' mit Exit-Code 1
+[error] | ❌ Fehler: 'make -j8' mit Exit-Code 2
+[error] | ❌ Fehler: 'make DESTDIR=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs install' mit Exit-Code 2
+[success] | ✅ gmp 6.3.0 erfolgreich installiert in /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs
+[info] | 
+=== Baue Paket: mpfr 4.2.1 ===
+[info] | Versuche Download von https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz ...
+[error] | ⚠️ Fehler beim Download von https://ftp.gnu.org/gnu/mpfr/mpfr-4.2.1.tar.xz: HTTPSConnectionPool(host='ftp.gnu.org', port=443): Max retries exceeded with url: /gnu/mpfr/mpfr-4.2.1.tar.xz (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7f4e802cf610>, 'Connection to ftp.gnu.org timed out. (connect timeout=60)'))
+[info] | Versuche Download von https://mirrors.kernel.org/gnu/mpfr/mpfr-4.2.1.tar.xz ...
+[success] | Download abgeschlossen: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/mpfr-4.2.1.tar.xz
+[info] | Entpacke /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/mpfr-4.2.1.tar.xz nach /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work ...
+[success] | Entpackt: mpfr-4.2.1.tar.xz → /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work
+[info] | 📂 Quellverzeichnis: work/mpfr-4.2.1
+[error] | ❌ Fehler: './configure --host={host} --prefix=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs/usr --with-gmp=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs/usr --disable-static --enable-shared' mit Exit-Code 1
+[error] | ❌ Fehler: 'make -j8' mit Exit-Code 2
+[error] | ❌ Fehler: 'make DESTDIR=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs install' mit Exit-Code 2
+[success] | ✅ mpfr 4.2.1 erfolgreich installiert in /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs
+[info] | 
+=== Baue Paket: mpc 1.3.1 ===
+[info] | Versuche Download von https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz ...
+[error] | ⚠️ Fehler beim Download von https://ftp.gnu.org/gnu/mpc/mpc-1.3.1.tar.gz: HTTPSConnectionPool(host='ftp.gnu.org', port=443): Max retries exceeded with url: /gnu/mpc/mpc-1.3.1.tar.gz (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7f4e802cf4d0>, 'Connection to ftp.gnu.org timed out. (connect timeout=60)'))
+[info] | Versuche Download von https://mirrors.kernel.org/gnu/mpc/mpc-1.3.1.tar.gz ...
+[success] | Download abgeschlossen: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/mpc-1.3.1.tar.gz
+[info] | Entpacke /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/mpc-1.3.1.tar.gz nach /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work ...
+[success] | Entpackt: mpc-1.3.1.tar.gz → /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work
+[info] | 📂 Quellverzeichnis: work/mpc-1.3.1
+[error] | ❌ Fehler: './configure --host={host} --prefix=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs/usr --with-gmp=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs/usr --with-mpfr=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs/usr --disable-static --enable-shared' mit Exit-Code 1
+[error] | ❌ Fehler: 'make -j8' mit Exit-Code 2
+[error] | ❌ Fehler: 'make DESTDIR=/home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs install' mit Exit-Code 2
+[success] | ✅ mpc 1.3.1 erfolgreich installiert in /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/build/rootfs
+[info] | 
+=== Baue Paket: gcc 13.2.0 ===
+[info] | Versuche Download von https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz ...
+[error] | ⚠️ Fehler beim Download von https://ftp.gnu.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz: HTTPSConnectionPool(host='ftp.gnu.org', port=443): Max retries exceeded with url: /gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7f4e801dca50>, 'Connection to ftp.gnu.org timed out. (connect timeout=60)'))
+[info] | Versuche Download von https://mirrors.kernel.org/gnu/gcc/gcc-13.2.0/gcc-13.2.0.tar.gz ...
+[success] | Download abgeschlossen: /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/gcc-13.2.0.tar.gz
+[info] | Entpacke /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work/downloads/gcc-13.2.0.tar.gz nach /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work ...
+[success] | Entpackt: gcc-13.2.0.tar.gz → /home/hexzhen3x7/Development/nexuzcore-development/firmware-buildsystems/nexuzcore-buildsystem/sources/work
+[info] | 📂 Quellverzeichnis: work/gcc-13.2.0
+[success] | ✔ './configure --prefix=/usr --disable-multilib --enable-languages=c,c++' erfolgreich abgeschlossen.
