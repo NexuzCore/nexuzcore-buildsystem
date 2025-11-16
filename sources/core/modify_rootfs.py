@@ -4,9 +4,12 @@ import shutil
 from pathlib import Path
 from utils.execute import run_command_live
 
+from core.logger import success, info, warning, error
+
+
 def cpy(qemu_bin_name, rootfs_dir):
     target = Path(rootfs_dir) / "usr/bin" / qemu_bin_name
-    print(f"Copying {qemu_bin_name} to {target}")
+    info(f"Copying {qemu_bin_name} to {target}")
     run_command_live(["sudo", "cp", f"/usr/bin/{qemu_bin_name}", str(target)])
 
 def chroot(busybox_src_dir, rootfs_dir, arch: str):
@@ -21,7 +24,7 @@ def chroot(busybox_src_dir, rootfs_dir, arch: str):
     if qemu_bin_name:
         cpy(qemu_bin_name, rootfs_dir)
     else:
-        print(f"[WARN] Keine QEMU-Binärdatei für Architektur {arch} gefunden.")
+        warning(f"[WARN] Keine QEMU-Binärdatei für Architektur {arch} gefunden.")
 
     # Mount FileSystems
     for src, target, fstype, opts in [
@@ -74,14 +77,14 @@ def chroot_with_qemu(rootfs_dir: Path, arch: str):
     
     qemu_bin = qemu_map.get(arch)
     if not qemu_bin:
-        print(f"[ERROR] Keine QEMU-Binärdatei für Architektur '{arch}' gefunden.")
+        error(f"[ERROR] Keine QEMU-Binärdatei für Architektur '{arch}' gefunden.")
         return
     
     qemu_src = Path("/usr/bin") / qemu_bin
     qemu_dst = Path(rootfs_dir) / "usr/bin" / qemu_bin
     
     if not qemu_src.exists():
-        print(f"[ERROR] QEMU-Binary {qemu_src} existiert nicht. Bitte 'qemu-user-static' installieren.")
+        error(f"[ERROR] QEMU-Binary {qemu_src} existiert nicht. Bitte 'qemu-user-static' installieren.")
         return
     
     # Zielverzeichnis sicherstellen
@@ -93,7 +96,7 @@ def chroot_with_qemu(rootfs_dir: Path, arch: str):
     # Rechte setzen (chmod +x)
     qemu_dst.chmod(qemu_dst.stat().st_mode | stat.S_IEXEC)
     
-    print(f"[INFO] {qemu_bin} erfolgreich nach {qemu_dst} kopiert und ausführbar gesetzt.")
+    info(f"[INFO] {qemu_bin} erfolgreich nach {qemu_dst} kopiert und ausführbar gesetzt.")
     
     # Mounten der notwendigen pseudo-filesystems
     for src, target, fstype, opts in [
@@ -114,7 +117,7 @@ def chroot_with_qemu(rootfs_dir: Path, arch: str):
     
     # Interaktives Chroot starten
     chroot_cmd = ["sudo", "chroot", str(rootfs_dir), f"/usr/bin/{qemu_bin}", "/bin/sh"]
-    print(f"[INFO] Starte interaktives Chroot für Architektur '{arch}'...")
+    info(f"[INFO] Starte interaktives Chroot für Architektur '{arch}'...")
     run_command_live(chroot_cmd, cwd=str(rootfs_dir), interactive=True)
 
 

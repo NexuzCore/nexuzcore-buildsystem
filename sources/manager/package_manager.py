@@ -3,6 +3,10 @@ import subprocess
 import shutil
 import argparse
 
+
+from core.logger import success, info, warning, error
+
+
 def build_opkg(arch: str):
     """
     Lädt den opkg-Quellcode herunter und kompiliert ihn für die gewünschte Architektur.
@@ -10,6 +14,8 @@ def build_opkg(arch: str):
     Args:
         arch (str): Zielarchitektur, entweder 'x86_64' oder 'arm64'.
     """
+    
+    
     # Prüfen der Architektur
     if arch not in ["x86_64", "arm64"]:
         raise ValueError("Ungültige Architektur. Nur 'x86_64' oder 'arm64' erlaubt.")
@@ -24,10 +30,10 @@ def build_opkg(arch: str):
     
     # opkg herunterladen
     if not os.path.exists(opkg_dir):
-        print("[*] Klone opkg-Repo...")
+        info("[*] Klone opkg-Repo...")
         subprocess.run(["git", "clone", repo_url, opkg_dir], check=True)
     else:
-        print("[*] opkg-Repo existiert bereits, pull updates...")
+        warning("[*] opkg-Repo existiert bereits, pull updates...")
         subprocess.run(["git", "-C", opkg_dir, "pull"], check=True)
     
     # Compiler bestimmen
@@ -42,7 +48,7 @@ def build_opkg(arch: str):
     env["AR"] = cross + "ar"
     env["CFLAGS"] = "-O2"
     
-    print(f"[*] Kompiliere opkg für Architektur {arch} mit Cross-Compiler {cross}...")
+    info(f"[*] Kompiliere opkg für Architektur {arch} mit Cross-Compiler {cross}...")
     
     # Build ausführen
     subprocess.run(["make", "clean"], cwd=opkg_dir, check=True, env=env)
@@ -53,7 +59,7 @@ def build_opkg(arch: str):
     dest_bin = os.path.join(workdir, f"opkg_{arch}")
     shutil.copy2(output_bin, dest_bin)
     
-    print(f"[*] opkg erfolgreich gebaut: {dest_bin}")
+    success(f"[*] opkg erfolgreich gebaut: {dest_bin}")
 
 # if __name__ == "__main__":
 #     parser = argparse.ArgumentParser(description="opkg herunterladen und kompilieren")

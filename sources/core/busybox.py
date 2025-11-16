@@ -1,9 +1,15 @@
+import os
+import multiprocessing
+
+
 from pathlib import Path
 from utils.load import load_config
 from utils.download import download_file, extract_archive
 from utils.execute import run_command_live, run_command
-import os
-import multiprocessing
+
+from core.logger import success, info, warning, error
+
+
 
 DEFAULT_PATCH = {
     "CONFIG_TC": "n",           # TC deaktivieren
@@ -46,7 +52,7 @@ def patch_config(busybox_src_dir: Path, patch_options: dict):
 
     for key, val in patch_options.items():
         set_config_option(cfg_file, key, val)
-    print(f"Console > .config gepatcht: {list(patch_options.keys())}")
+    success(f"Console > .config gepatcht: {list(patch_options.keys())}")
 
 
 
@@ -70,7 +76,7 @@ def build_busybox(args, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
     config_patches = config.get("config_patch", [])
     config_patch_dict = parse_patch_list(config_patches)
 
-    print("Console > BusyBox Source Dir:", busybox_src_dir)
+    info("[*] BusyBox Source Dir:", busybox_src_dir)
     
     
     
@@ -88,17 +94,17 @@ def build_busybox(args, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
     rootfs_dir.mkdir(parents=True, exist_ok=True)
 
     # Download & Extract
-    print(f"Console > Lade BusyBox {version} herunter...")
+    info(f"Console > Lade BusyBox {version} herunter...")
     tarball = download_file(urls, downloads_dir)
 
-    print(f"Console > Entpacke BusyBox {version}...")
+    info(f"Console > Entpacke BusyBox {version}...")
     extracted_dir = extract_archive(tarball, work_dir)
 
     # Get Source Location
     subdirs = [d for d in extracted_dir.iterdir() if d.is_dir()]
     src_dir = subdirs[0] if len(subdirs) == 1 else extracted_dir
     
-    print(f"Console > BusyBox Quellverzeichnis: {busybox_src_dir}")
+    info(f"Console > BusyBox Quellverzeichnis: {busybox_src_dir}")
 
     # Enviroment Variables for Cross-Compile
     env = os.environ.copy()
@@ -115,10 +121,10 @@ def build_busybox(args, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
     run_command_live(["make", "defconfig"], cwd=busybox_src_dir, env=env, desc="BusyBox defconfig erstellen")
 
     # 2️⃣ .config patch (TC deactivated + optional extra_cfg)
-    print("Console > Patching Busybox's: -> .config - file !.. .. . \n With:")
+    info("Console > Patching Busybox's: -> .config - file !.. .. . \n With:")
     patch_dict = parse_patch_list(config["config_patch"])
-    print(patch_dict)
-    print(extra_cfg)
+    info(patch_dict)
+    info(extra_cfg)
     patch_config(busybox_src_dir, {**DEFAULT_PATCH, **config_patch_dict, **extra_cfg})
 
     
@@ -132,17 +138,17 @@ def build_busybox(args, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
 
 
     # 4️⃣ Kompilieren mit allen Cores
-    print("Detecting available CPU-Cores for compiling source-code ... .. .")
+    info("Detecting available CPU-Cores for compiling source-code ... .. .")
     num_cores = multiprocessing.cpu_count()
-    print(f"Detected: {num_cores}")
+    success(f"Detected: {num_cores}")
     
-    print(f"Console > Compiling BusyBox with {num_cores} Cores...")
+    info(f"Console > Compiling BusyBox with {num_cores} Cores...")
     run_command_live(["make", f"-j{num_cores}"], cwd=busybox_src_dir, env=env, desc="BusyBox kompilieren")
 
     # 5️⃣ Installation ins RootFS
     run_command_live(["make", f"CONFIG_PREFIX={rootfs_dir}", "install"], cwd=busybox_src_dir, env=env, desc="BusyBox installieren")
 
-    print(f"✅ BusyBox {version} successfully installed in {rootfs_dir}")
+    success(f"✅ BusyBox {version} successfully installed in {rootfs_dir}")
     
     
     

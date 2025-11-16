@@ -6,6 +6,8 @@ from utils.download import download_file, extract_archive
 from utils.execute import run_command_live
 from utils.load import load_config
 
+from core.logger import success, info, warning, error
+
 
 # ──────────────────────────────────────────────
 #  Host-Tools, die nicht gebaut werden
@@ -70,7 +72,7 @@ def load_all_packages(configs_dir: Path) -> dict:
         # Paketname muss eindeutig sein
         name = conf["name"]
         if name in packages:
-            print(f"⚠️  Überschreibe vorhandenes Paket: {name}")
+            warning(f"⚠️  Überschreibe vorhandenes Paket: {name}")
         packages[name] = conf
 
         # Host-Abhängigkeiten mergen
@@ -115,19 +117,19 @@ def resolve_build_order(packages: dict) -> list[str]:
 def build_generic(args, conf, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
     # Host-Tool-Check
     if conf.get("version") == "host":
-        print(f"⚡ {conf['name']} ist ein Host-Tool, überspringe Build.")
+        info(f"⚡ {conf['name']} ist ein Host-Tool, überspringe Build.")
         return
 
     name = conf["name"]
     version = conf["version"]
     src_dir = Path(conf["src_dir"].format(version=version))
 
-    print(f"\n=== Baue Paket: {name} {version} ===")
+    info(f"\n=== Baue Paket: {name} {version} ===")
 
     # Download & Entpacken
     tarball = download_file(conf["urls"], downloads_dir)
     extract_archive(tarball, work_dir)
-    print(f"📂 Quellverzeichnis: {src_dir}")
+    info(f"📂 Quellverzeichnis: {src_dir}")
 
     # Architektur-Setup
     arch = args.arch if args.arch else "x86_64"
@@ -175,7 +177,7 @@ def build_generic(args, conf, work_dir: Path, downloads_dir: Path, rootfs_dir: P
             ]
             run_command_live(cmd, cwd=build_dir, env=env, desc=f"{name}: cmake configure")
         else:
-            print(f"⚠️ Kein configure/CMakeLists.txt gefunden – überspringe configure.")
+            warning(f"⚠️ Kein configure/CMakeLists.txt gefunden – überspringe configure.")
             build_dir = src_dir
 
     # Build & Install
@@ -184,7 +186,7 @@ def build_generic(args, conf, work_dir: Path, downloads_dir: Path, rootfs_dir: P
     run_command_live(["make", f"-j{num_cores}"], cwd=make_dir, env=env, desc=f"{name}: build")
     run_command_live(["make", f"DESTDIR={rootfs_dir}", "install"], cwd=make_dir, env=env, desc=f"{name}: install")
 
-    print(f"✅ {name} {version} erfolgreich installiert in {rootfs_dir}")
+    success(f"✅ {name} {version} erfolgreich installiert in {rootfs_dir}")
 
 
 # ──────────────────────────────────────────────
@@ -193,7 +195,7 @@ def build_generic(args, conf, work_dir: Path, downloads_dir: Path, rootfs_dir: P
 def build_all(args, configs_dir: Path, work_dir: Path, downloads_dir: Path, rootfs_dir: Path):
     packages = load_all_packages(configs_dir)
     build_order = resolve_build_order(packages)
-    print(f"📦 Build-Reihenfolge: {', '.join(build_order)}")
+    info(f"📦 Build-Reihenfolge: {', '.join(build_order)}")
 
     failed = []
 
@@ -202,16 +204,16 @@ def build_all(args, configs_dir: Path, work_dir: Path, downloads_dir: Path, root
         try:
             build_generic(args, conf, work_dir, downloads_dir, rootfs_dir)
         except Exception as e:
-            print(f"❌ Fehler beim Bauen von {name}: {e}")
+            error(f"❌ Fehler beim Bauen von {name}: {e}")
             failed.append(name)
             if not getattr(args, "ignore_errors", False):
                 raise
             else:
-                print("➡️  Ignoriere Fehler und fahre mit dem nächsten Paket fort.")
+                warning("➡️  Ignoriere Fehler und fahre mit dem nächsten Paket fort.")
 
     if failed:
-        print("\n⚠️ Folgende Pakete konnten nicht gebaut werden:")
+        error("\n⚠️ Folgende Pakete konnten nicht gebaut werden:")
         for n in failed:
-            print(f"  - {n}")
+            error(f"  - {n}")
     else:
-        print("\n✅ Alle Pakete erfolgreich gebaut!")
+        success("\n✅ Alle Pakete erfolgreich gebaut!")

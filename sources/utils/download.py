@@ -1,6 +1,12 @@
 import requests, tarfile, zipfile
+
+
+
 from pathlib import Path
 from tqdm import tqdm
+
+from core.logger import success, info, warning, error
+
 
 def download_file(urls, dest_dir: Path, timeout: int = 60) -> Path:
     """
@@ -8,6 +14,7 @@ def download_file(urls, dest_dir: Path, timeout: int = 60) -> Path:
     - Akzeptiert entweder einen einzelnen URL (str)
       oder eine Liste von URLs (list[str]) als Mirror-Fallback.
     """
+    
     dest_dir = Path(dest_dir)
     dest_dir.mkdir(parents=True, exist_ok=True)
 
@@ -22,10 +29,10 @@ def download_file(urls, dest_dir: Path, timeout: int = 60) -> Path:
 
         # Bereits vorhanden?
         if dest.exists():
-            print(f"Console > {filename} bereits vorhanden, überspringe Download.")
+            warning(f"Console > {filename} bereits vorhanden, überspringe Download.")
             return dest
 
-        print(f"Console > Versuche Download von {url} ...")
+        info(f"Console > Versuche Download von {url} ...")
         try:
             response = requests.get(url, stream=True, timeout=timeout)
             response.raise_for_status()
@@ -42,14 +49,17 @@ def download_file(urls, dest_dir: Path, timeout: int = 60) -> Path:
                     f.write(chunk)
                     bar.update(len(chunk))
 
-            print(f"Console > Download abgeschlossen: {dest}")
+            success(f"Console > Download abgeschlossen: {dest}")
             return dest
         except Exception as e:
-            print(f"⚠️ Fehler beim Download von {url}: {e}")
+            error(f"⚠️ Fehler beim Download von {url}: {e}")
             last_error = e
             continue
 
     raise RuntimeError(f"Download fehlgeschlagen. Letzter Fehler: {last_error}")
+
+
+
 
 
 def extract_archive(archive_path: Path, extract_to: Path) -> Path:
@@ -57,6 +67,8 @@ def extract_archive(archive_path: Path, extract_to: Path) -> Path:
     Entpackt ein Archiv in ein Zielverzeichnis.
     Unterstützt: .tar.gz, .tgz, .tar.bz2, .tar.xz, .tar, .zip
     """
+    
+    
     archive_path = Path(archive_path)
     extract_to = Path(extract_to)
     extract_to.mkdir(parents=True, exist_ok=True)
@@ -82,7 +94,7 @@ def extract_archive(archive_path: Path, extract_to: Path) -> Path:
     else:
         raise ValueError(f"Unsupported archive format: {archive_path}")
 
-    print(f"Console > Entpackt: {archive_path.name} → {extract_to}")
+    success(f"Console > Entpackt: {archive_path.name} → {extract_to}")
 
     # Falls nur ein Unterordner enthalten ist, direkt diesen zurückgeben
     dirs = [d for d in extract_to.iterdir() if d.is_dir()]

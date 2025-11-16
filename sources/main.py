@@ -36,6 +36,10 @@ from manager.manager import build_all
 from manager.package_manager import build_opkg
 
 
+from core.logger import success, info, warning, error
+
+
+
 # ---------------------------
 # Projektverzeichnisse
 # ---------------------------
@@ -61,7 +65,7 @@ dirs = {
 
 
 def configs(args):
-    print("Console > Configuring BuildSystem ::::...:.. . :: .--. .")
+    info("Console > Configuring BuildSystem ::::...:.. . :: .--. .")
     config = load_config(Path("configs") / args.config)
     version = config["version"]
     urls = config.get("urls", {})
@@ -93,7 +97,7 @@ def parse():
 # ---------------------------
 def create_rootfs(args):
     # Creates the whole workenviroment and rootfs- folders!""
-    print("[*] Starte RootFS-Erstellung...")
+    info("[*] Starte RootFS-Erstellung...")
     create_directories()
     # Creates all neccessary configurations files in e.g. /etc
     create_etc_files()
@@ -107,12 +111,13 @@ def create_rootfs(args):
     copy_qemu_user_static(arch=args.arch)
     # Sets the rootfs permissions
     set_rootfs_permissions()
+    success("[*] RootFS Struktur erfolgreich erstellt!")
     
 
     
     
 def busybox(args):
-    print("[*] Starte BusyBox-Build...")
+    info("[*] Starte BusyBox-Build...")
     build_busybox(
         args=args,
         work_dir=work_dir,
@@ -121,7 +126,7 @@ def busybox(args):
     )
     # build_busybox(args, version, work_dir, busybox_src_dir, downloads_dir, url, cross_compile, rootfs_dir, extra_cfg, config_patches)
     
-    print("[+] Fertig! RootFS und BusyBox sind erstellt.")
+    success("[+] Fertig! RootFS und BusyBox sind erstellt.")
 
 
 

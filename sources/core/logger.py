@@ -1,47 +1,70 @@
+"""
+Colorful Logger Utility for NexuzCore Buildsystem
+
+Usage:
+    from core.logger import success, info, warning, error
+
+    success("Console > Busybox wurde erfolgreich installiert!")
+    info("Console > Busybox wird gedownloaded, extrahiert und installiert!")
+    warning("Console > Etwas ist ungewöhnlich, bitte überprüfen!")
+    error("Console > Ein Fehler ist aufgetreten!")
+"""
+
 import logging
-from colorama import init, Fore, Style
+import sys
 
-# Colorama initialisieren
-init(autoreset=True)
+# ANSI Farbdefinitionen für "neon"-Farbtöne (anpassbar)
+RESET = "\033[0m"
+NEON_GREEN = "\033[38;2;57;255;20m"
+NEON_CYAN = "\033[38;2;21;255;255m"
+NEON_ORANGE = "\033[38;2;255;140;0m"
+NEON_RED = "\033[38;2;255;50;40m"
 
-# Neon-Farben
-NEON_TURQ = Fore.CYAN + Style.BRIGHT
-NEON_ORANGE = Fore.MAGENTA + Style.BRIGHT
-NEON_GREEN = Fore.GREEN + Style.BRIGHT
-WHITE = Fore.WHITE + Style.NORMAL
-RED = Fore.RED + Style.BRIGHT
+class ColorFormatter(logging.Formatter):
+    FORMATS = {
+        logging.DEBUG: f"{NEON_CYAN}[debug]{RESET} | %(message)s",
+        logging.INFO:  f"{NEON_CYAN}[info]{RESET} | %(message)s",
+        logging.WARNING: f"{NEON_ORANGE}[warning]{RESET} | %(message)s",
+        logging.ERROR: f"{NEON_RED}[error]{RESET} | %(message)s",
+        logging.CRITICAL: f"{NEON_RED}[critical]{RESET} | %(message)s",
+        "SUCCESS": f"{NEON_GREEN}[success]{RESET} | %(message)s"
+    }
 
-class FirmwareLogger:
-    def __init__(self, log_file="build.log"):
-        # Logger Setup
-        self.logger = logging.getLogger("FirmwareBuilder")
-        self.logger.setLevel(logging.DEBUG)
-        self.logger.propagate = False
+    def format(self, record):
+        fmt = self.FORMATS.get(record.levelno, self.FORMATS.get(record.levelname, self.FORMATS[logging.INFO]))
+        # Unterstützt das custom SUCCESS-Level
+        if getattr(record, "success", False):
+            fmt = self.FORMATS["SUCCESS"]
+        formatter = logging.Formatter(fmt)
+        return formatter.format(record)
 
-        # File Handler (reine Textdatei)
-        file_handler = logging.FileHandler(log_file)
-        file_formatter = logging.Formatter("[%(levelname)s] %(message)s")
-        file_handler.setFormatter(file_formatter)
-        self.logger.addHandler(file_handler)
+# Basis-Logger einrichten
+logger = logging.getLogger("nexuzcore")
+logger.setLevel(logging.DEBUG)
+handler = logging.StreamHandler(sys.stdout)
+handler.setFormatter(ColorFormatter())
+logger.handlers = [handler]
+logger.propagate = False
 
-        # Kurze Aliase für einfachen Call
-        self.con = self.console
-        self.info = self.info_msg
-        self.warn = self.warning
-        self.err = self.error
+# Erfolg als eigenes Level
+SUCCESS_LEVEL = 25
+logging.addLevelName(SUCCESS_LEVEL, "SUCCESS")
 
-    def console(self, msg):
-        print(f"{NEON_TURQ}Console > {NEON_ORANGE}{msg}")
-        self.logger.info(f"Console > {msg}")
+def success(msg, *args, **kwargs):
+    # Additional kwarg: extra={"success": True} für custom formatting
+    logger.log(SUCCESS_LEVEL, msg, *args, extra={"success": True}, **kwargs)
 
-    def info_msg(self, msg):
-        print(f"{NEON_GREEN}Info > {NEON_ORANGE}{msg}")
-        self.logger.info(f"Info > {msg}")
+def info(msg, *args, **kwargs):
+    logger.info(msg, *args, **kwargs)
 
-    def warning(self, msg):
-        print(f"{Fore.YELLOW}Warning > {WHITE}{msg}")
-        self.logger.warning(f"Warning > {msg}")
+def warning(msg, *args, **kwargs):
+    logger.warning(msg, *args, **kwargs)
 
-    def error(self, msg):
-        print(f"{RED}Error > {NEON_GREEN}{msg}")
-        self.logger.error(f"Error > {msg}")
+def error(msg, *args, **kwargs):
+    logger.error(msg, *args, **kwargs)
+
+def debug(msg, *args, **kwargs):
+    logger.debug(msg, *args, **kwargs)
+
+# OPTIONAL: Standardmäßiges Kommando für print-Ersatz
+log = logger

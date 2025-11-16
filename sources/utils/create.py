@@ -10,6 +10,9 @@ import shutil
 
 from pathlib import Path
 
+from core.logger import success, info, warning, error
+
+
 # -----------------------------
 # Basisverzeichnisse
 # -----------------------------
@@ -108,30 +111,36 @@ exec /bin/sh
 
 def create_directories(extra_dir: str | None = None):
     """Erstellt Workspace und RootFS-Verzeichnisse"""
-    print("[INFO] Creating main directories...")
+    
+    
+    info("[INFO] Creating main directories...")
     for d in workspace_dirs:
         d.mkdir(parents=True, exist_ok=True)
-        print(f"[INFO] Created {d}")
+        success(f"[INFO] Created {d}")
 
-    print("[INFO] Creating rootfs directories...")
+    info("[INFO] Creating rootfs directories...")
     for sub in rootfs_subdirs:
         path = rootfs_dir / sub
         path.mkdir(parents=True, exist_ok=True)
         path.chmod(0o755)
-        print(f"[INFO] Created {path}")
+        success(f"[INFO] Created {path}")
     
     if extra_dir:
         extra_path = Path(extra_dir)
         extra_path.mkdir(parents=True, exist_ok=True)
-        print(f"[INFO] Created extra directory {extra_path}")
+        info(f"[INFO] Created extra directory {extra_path}")
 
-    print("[INFO] All directories created.")
+    success("[INFO] All directories created.")
+
+
+
 
 
 def create_etc_files():
     """Erstellt alle minimalen /etc Konfig-Dateien"""
+    
     etc_path = rootfs_dir / "etc"
-    print("[INFO] Creating /etc configuration files...")
+    info("[INFO] Creating /etc configuration files...")
     for filename, content in etc_files.items():
         rel_path = filename.replace("etc/", "") if filename.startswith("etc/") else filename
         file_path = etc_path / rel_path
@@ -139,14 +148,18 @@ def create_etc_files():
         file_path.write_text(content)
         if file_path.name == "rcS" or file_path.suffix == ".sh":
             file_path.chmod(0o755)
-        print(f"[INFO] Created {file_path}")
+        success(f"[INFO] Created {file_path}")
+
+
+
 
 
 def create_dev_nodes():
     """Erstellt Device Nodes; simuliert, falls keine Rootrechte"""
+    
     dev_path = rootfs_dir / "dev"
     dev_path.mkdir(parents=True, exist_ok=True)
-    print("[INFO] Creating device nodes in /dev...")
+    info("[INFO] Creating device nodes in /dev...")
 
     devices = [
         ("null", stat.S_IFCHR, 1, 3, 0o666),
@@ -164,38 +177,48 @@ def create_dev_nodes():
         if not node_path.exists():
             try:
                 os.mknod(node_path, typ | perms, os.makedev(major, minor))
-                print(f"[INFO] Created device node {node_path}")
+                success(f"[INFO] Created device node {node_path}")
             except PermissionError:
                 node_path.touch()
                 node_path.chmod(perms)
-                print(f"[WARN] Permission denied; created simulated device node {node_path}")
+                warning(f"[WARN] Permission denied; created simulated device node {node_path}")
 
     (dev_path / "pts").mkdir(exist_ok=True)
-    print("[INFO] Created /dev/pts directory")
+    success("[SUCCESS] Created /dev/pts directory")
+
+
 
 
 def create_busybox_init():
     """Erstellt init Skript für BusyBox"""
+    
     init_path = rootfs_dir / "init"
     init_path.write_text(init_script_content)
     init_path.chmod(0o755)
-    print(f"[INFO] Created BusyBox init script at {init_path}")
+    success(f"[SUCCESS] Created BusyBox init script at {init_path}")
+
+
 
 
 def create_symlinks():
     """Erstellt Standard-Symlinks /sbin/init und /bin/sh zu BusyBox"""
+    
     busybox_path = rootfs_dir / "bin/busybox"
     if busybox_path.exists():
         (rootfs_dir / "sbin/init").symlink_to("../bin/busybox")
         (rootfs_dir / "bin/sh").symlink_to("busybox")
-        print("[INFO] BusyBox symlinks created")
+        info("[INFO] BusyBox symlinks created")
     else:
-        print("[WARN] BusyBox not found; symlinks skipped")
+        warning("[WARN] BusyBox not found; symlinks skipped")
+
+
+
 
 
 def set_rootfs_permissions():
     """Setzt Berechtigungen für RootFS"""
-    print(f"[INFO] Setting permissions for {rootfs_dir}...")
+    
+    info(f"[INFO] Setting permissions for {rootfs_dir}...")
 
     for dirpath, _, filenames in os.walk(rootfs_dir):
         path = Path(dirpath)
@@ -219,7 +242,9 @@ def set_rootfs_permissions():
     if (rootfs_dir / "dev").exists():
         (rootfs_dir / "dev").chmod(0o755)
     rootfs_dir.chmod(0o755)
-    print("[INFO] Permissions set.")
+    success("[INFO] Permissions set.")
+
+
 
 
 
@@ -233,10 +258,8 @@ def copy_qemu_user_static(arch: str, qemu_dir: Path | None = None):
     :param qemu_dir: Optionales Verzeichnis, in dem die QEMU-Binärdateien liegen
     """
     
-    print("Console > Copying Qemu- Shell Emulation File to RootFS!!!")
-    
-    
-    
+    info("Console > Copying Qemu- Shell Emulation File to RootFS!!!")
+     
     if qemu_dir is None:
         qemu_dir = Path("/usr/bin")  # Standardpfad unter Linux, ggf. anpassen
     
@@ -249,7 +272,7 @@ def copy_qemu_user_static(arch: str, qemu_dir: Path | None = None):
     
     qemu_bin_name = qemu_map.get(arch)
     if not qemu_bin_name:
-        print(f"[WARN] Keine QEMU-Binärdatei für Architektur {arch} gefunden.")
+        warning(f"[WARN] Keine QEMU-Binärdatei für Architektur {arch} gefunden.")
         return
     
     src = qemu_dir / qemu_bin_name
@@ -257,10 +280,10 @@ def copy_qemu_user_static(arch: str, qemu_dir: Path | None = None):
     dest.parent.mkdir(parents=True, exist_ok=True)
     
     if not src.exists():
-        print(f"[WARN] QEMU-Binärdatei {src} existiert nicht. Bitte installieren!")
+        warning(f"[WARN] QEMU-Binärdatei {src} existiert nicht. Bitte installieren!")
         return
     
     
     shutil.copy2(src, dest)
     dest.chmod(0o755)
-    print(f"[INFO] QEMU-Binärdatei {qemu_bin_name} nach {dest} kopiert.")
+    success(f"[SUCCESS] QEMU-Binärdatei {qemu_bin_name} nach {dest} kopiert.")
